@@ -1,0 +1,14 @@
+# Copie para terraform.tfvars e ajuste. O .tfvars real nao e versionado.
+
+aws_region   = "us-east-1"
+project_name = "tech-challenge-fiap"
+
+# Banco
+db_instance_class    = "db.t4g.micro"
+db_allocated_storage = 20
+db_name              = "oficina"
+db_username          = "oficina_admin"
+
+# Credencial de terceiro: prefira TF_VAR_resend_api_key no ambiente
+# a deixar o valor em arquivo.
+# resend_api_key = ""
