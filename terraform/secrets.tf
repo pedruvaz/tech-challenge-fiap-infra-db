@@ -37,8 +37,9 @@ resource "aws_secretsmanager_secret_version" "api" {
   # (a CA do RDS não está no trust store); com o modo libpq, `require`
   # criptografa sem exigir a CA — mesmo comportamento do psql. O engine do
   # Prisma (migrate) aceita e ignora o parâmetro extra.
-  # merge(): com resend_api_key vazia a chave nem aparece no JSON — o deploy
-  # detecta a ausência e não a materializa no Secret k8s.
+  # merge(): com resend_api_key ou newrelic_license_key vazias a chave nem
+  # aparece no JSON — o deploy detecta a ausência e não a materializa no
+  # Secret k8s correspondente.
   secret_string = jsonencode(merge(
     {
       DATABASE_URL = format(
@@ -52,5 +53,6 @@ resource "aws_secretsmanager_secret_version" "api" {
       JWT_REFRESH_SECRET = random_password.jwt_refresh.result
     },
     var.resend_api_key != "" ? { RESEND_API_KEY = var.resend_api_key } : {},
+    var.newrelic_license_key != "" ? { NR_LICENSE_KEY = var.newrelic_license_key } : {},
   ))
 }

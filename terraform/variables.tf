@@ -49,3 +49,20 @@ variable "resend_api_key" {
   default     = ""
   sensitive   = true
 }
+
+variable "newrelic_license_key" {
+  description = <<-EOT
+    License Key (INGEST - LICENSE) do New Relic, usada pela API como header do
+    exporter OTLP e pelo Helm do nri-bundle no cluster.
+
+    Mesmo contrato da resend_api_key: opcional, com o default vazio a chave
+    fica FORA do JSON do Secrets Manager, o deploy não cria o Secret k8s
+    newrelic-secrets e o pod sobe normalmente (o secretKeyRef é optional) —
+    só a telemetria fica desligada. Para ativar:
+    TF_VAR_newrelic_license_key=<chave> terraform apply.
+    Credencial de terceiro: entra por variável, nunca hardcoded nem gerada.
+  EOT
+  type        = string
+  default     = ""
+  sensitive   = true
+}
