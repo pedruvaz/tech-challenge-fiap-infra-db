@@ -95,6 +95,10 @@ Configure antes do primeiro push:
 - Secret `AWS_TERRAFORM_ROLE_ARN` — output `github_terraform_role_arn` do
   `infra-k8s`.
 - Variable `AWS_REGION`.
+- Secret `NEWRELIC_LICENSE_KEY` (opcional) — License Key INGEST do New Relic. O
+  workflow a passa como `TF_VAR_newrelic_license_key`, e ela entra no JSON do
+  segredo da API como `NR_LICENSE_KEY`. Sem o secret, o pipeline roda igual e a
+  chave fica fora do JSON — o `app-oficina` sobe sem telemetria.
 
 A branch `main` é protegida: merge só via Pull Request.
 
