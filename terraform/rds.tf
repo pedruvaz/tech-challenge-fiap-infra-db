@@ -100,3 +100,4 @@ module "rds" {
   backup_retention_period = 0
   create_monitoring_role  = false
 }
+# Demonstração do pipeline (PR do vídeo, não fazer merge)
